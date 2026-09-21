@@ -20,6 +20,15 @@ Those iterations are recorded below as development milestones rather than publis
 
 \## Unreleased
 
+### Calendar Hotkey 2.0
+
+- Added typed event candidates with source spans, missing fields, warnings, and validation status.
+- Rebuilt Japanese/English parsing around an injected reference datetime and configurable timezone/duration/limits.
+- Added multiline event extraction, duration and cross-midnight handling, IANA zones, UTC offsets, and safe review/AUTO modes.
+- Separated Google Calendar operations from parsing and added duplicate, retry, and partial-failure handling.
+- Hardened the AutoHotkey launcher for Unicode files, local virtual environments, and duplicate invocations.
+- Added an offline pytest suite and parser, testing, and Windows validation documentation.
+
 
 
 \### Added
