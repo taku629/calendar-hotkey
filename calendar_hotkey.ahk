@@ -4,6 +4,15 @@
 ; Ctrl + Alt + G
 ^!g::
 {
+    static running := false
+    if running
+    {
+        TrayTip("処理中です。完了してから再実行してください。", "Google Calendar")
+        return
+    }
+    running := true
+    try
+    {
     text := A_Clipboard
 
     if (Trim(text) = "")
@@ -46,7 +55,16 @@
     ; コマンド作成
     q := Chr(34)
 
-    command := "pyw.exe " q script q " " q inputFile q " " q resultFile q
+    python := ""
+    for candidate in [A_ScriptDir "\.venv\Scripts\pythonw.exe", "pyw.exe", "pythonw.exe"]
+    {
+        if (InStr(candidate, "\") && FileExist(candidate)) || !InStr(candidate, "\")
+        {
+            python := candidate
+            break
+        }
+    }
+    command := q python q " " q script q " " q inputFile q " " q resultFile q
 
     try
     {
@@ -96,4 +114,9 @@
     ; 一時ファイル削除
     try FileDelete(inputFile)
     try FileDelete(resultFile)
+    }
+    finally
+    {
+        running := false
+    }
 }
